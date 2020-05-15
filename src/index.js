@@ -33,7 +33,9 @@ function* fetchSearch(action){
 }
 function* addFavorite(action){
     try{
+        console.log(action.payload);
         const res = yield axios.post(`/api/favorite`, action.payload);
+        
     }catch(err){
         alert(`ERROR in addFavorite. See console.`)
         console.log(err);
