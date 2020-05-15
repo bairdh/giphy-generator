@@ -19,6 +19,7 @@ const searchReducer = (state = [], action) => {
 // Saga generator function
 function* rootSaga(){
     yield takeEvery('FETCH_SEARCH', fetchSearch);
+    yield takeEvery('ADD_FAVORITE', addFavorite);
 }
 
 function* fetchSearch(action){
@@ -27,6 +28,14 @@ function* fetchSearch(action){
         yield put({type: 'SET_RESULTS', payload: res.data.data})
     }catch(err){
         alert( `ERROR in fetchSearch. See console.`)
+        console.log(err);
+    }
+}
+function* addFavorite(action){
+    try{
+        const res = yield axios.post(`/api/favorite`, action.payload);
+    }catch(err){
+        alert(`ERROR in addFavorite. See console.`)
         console.log(err);
     }
 }
