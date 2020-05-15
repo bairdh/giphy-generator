@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
-
-
+import {Card, CardMedia, CardContent, Typography, Button} from '@material-ui/core';
+import SearchItem from './SearchItem';
+ 
 class Search extends Component{
 
     state = {
@@ -27,8 +27,13 @@ class Search extends Component{
                 <input onChange={(event) => this.handleChange(event)} placeholder="search"/>
                 <button onClick={this.handleClick}>Search</button>
                 <br/>
-                {this.props.reduxState.searchReducer.map(gif => 
-                    <img key={gif.id} src={gif.images.downsized.url} width='200px'/>)}
+
+                {this.props.reduxState.searchReducer.map(gif => <SearchItem 
+                                                                    key={gif.id} 
+                                                                    gif={gif}
+                                                                    dispatch={this.props.dispatch}/>
+                    
+                    )}
             </div>
         ) // return
     } // render
