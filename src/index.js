@@ -15,11 +15,19 @@ const searchReducer = (state = [], action) => {
     return state;
 }
 
+const favoriteReducer = (state =[], action) => {
+    if(action.type === 'SET_FAVORITES'){
+        return action.payload
+    }
+    return state;
+}
+
 // Saga -----------------------
 // Saga generator function
 function* rootSaga(){
     yield takeEvery('FETCH_SEARCH', fetchSearch);
     yield takeEvery('ADD_FAVORITE', addFavorite);
+    yield takeEvery('FETCH_FAVORITES', fetchFavorites);
 }
 
 function* fetchSearch(action){
@@ -35,10 +43,17 @@ function* addFavorite(action){
     try{
         console.log(action.payload);
         const res = yield axios.post(`/api/favorite`, action.payload);
-        
     }catch(err){
         alert(`ERROR in addFavorite. See console.`)
         console.log(err);
+    }
+}
+function* fetchFavorites(action){
+    try{
+        const res = yield axios.get('/api/favorite');
+        yield put({type: 'SET_FAVORITES', payload: res.data});
+    }catch(err){
+        
     }
 }
 
@@ -47,7 +62,8 @@ const sagaMiddleware = createSagaMiddleware(rootSaga);
 // Store ------------------
 const store = createStore( 
     combineReducers({
-        searchReducer
+        searchReducer,
+        favoriteReducer
     }),
     applyMiddleware(sagaMiddleware));
 

@@ -19,6 +19,10 @@ class Search extends Component{
         this.props.dispatch({ type: 'FETCH_SEARCH', payload: this.state.input});
     }
 
+    goToFavorites = () => {
+        this.props.history.push('/favorite');
+    }
+
     render(){
         console.log(this.props.reduxState.searchReducer);
         
@@ -26,6 +30,8 @@ class Search extends Component{
             <div>
                 <input onChange={(event) => this.handleChange(event)} placeholder="search"/>
                 <button onClick={this.handleClick}>Search</button>
+
+                <Button onClick={this.goToFavorites} variant="contained" color="secondary">Favorites</Button>
                 <br/>
 
                 {this.props.reduxState.searchReducer.map(gif => <SearchItem 

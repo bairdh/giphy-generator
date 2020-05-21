@@ -31,9 +31,6 @@ class SearchItem extends Component{
                 component="img"
                 src={this.props.gif.images.downsized.url} />
                 <CardContent>
-                    <Typography color="textSecondary" gutterBottom>
-                        This is a meme
-                            </Typography>
                     <Button size="small" onClick={this.favorite} variant="contained">&hearts;</Button>
                    <FormControl>
                     <InputLabel id="demo-simple-select-label">SELECT</InputLabel>
